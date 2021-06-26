@@ -30,3 +30,18 @@ Primeiros passos no projeto:
         3.2- Para atualizar o repositório local com as alterações do repositório remoto utilize "git pull"
         Ex:
             git pull
+    4- Acesse o site sonarcloud.io
+        4.1- Com a conta utilizada no GitLab, realize login
+        4.2- Localize um sinal de "+" onde deve-se mostrar ao clicar "Analize novo projeto"
+        4.3- Selecione a opção de Analizar novo projeto.
+        4.4- Informe a sua chave API do gitLab
+            4.4.1- Acesse suas configurações pessoais em seguida chaves de acesso https://gitlab.com/-/profile/personal_access_tokens
+            4.4.2- Marque a opção API, dê um nome para a chave e clique em criar.
+            4.4.3- Copie o código abaixo de "Seu novo token de acesso pessoal"
+        4.5- Prossiga com a criação da organização e selecione o projeto criado no GitLab
+        4.6- Escolha a opção recomendada "Com CI/CD do GitLab"
+        4.7- Defina as variáveis de ambiente como informado na tela. DICA: Os links mostrados levam direto ao local de configuração do projeto.
+        4.8- Ao clicar em continuar, selecione na proxima tela a opção maven.
+        4.9- Crie um arquivo de configuração do sonar com o nome de ".gitlab-ci.yml" e copie o conteudo de acordo com as instruções da tela.
+        4.10- Caso já tenha criado o projeto Maven, insira o properties do sonar no arquivo "pom.xml", caso contrário guarde a informação para o uso futuro.
+        
