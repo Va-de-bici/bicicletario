@@ -9,16 +9,14 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import echo.util.JavalinApp;
-import io.javalin.plugin.json.JavalinJson;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 
 
 
-class BicicletaControllerTest {
+class ControllerTest {
 
     private static JavalinApp app = new JavalinApp(); // inject any dependencies you might have
-    private String bikeJson = JavalinJson.toJson(BicicletaController.mock.banco);
 
     @BeforeAll
     static void init() {
@@ -31,7 +29,7 @@ class BicicletaControllerTest {
     }
 
     @Test
-    void getEcho() {
+    void getEchoTest() {
         HttpResponse response = Unirest.get("http://localhost:7010/getEcho/Artur").asString();
         assertEquals(200, response.getStatus());
         assertEquals(response.getBody(), "Artur Artur Artur");
