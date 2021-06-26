@@ -2,14 +2,14 @@ O presente trabalho é fruto do projeto de Monitoria da disciplina de Programaç
 O mesmo tem o objetivo de orientar os primeiros passos para a criação de um projeto modularizado em Java.
 
 
-Criando o Projeto no GitLab:
+##Criando o Projeto no GitLab:
     1- Criar/Entrar com uma conta na plataforma GitLab. https://gitlab.com
     2- Com o mouse, localizar e clicar no botão "Novo Projeto"
     3- Selecionar a opção de "Projeto em Branco"
     4- Informar o nome do Projeto e marcá-lo como publico.
     5- Clicar no botão "Criar projeto"
 
-Primeiros passos no projeto:
+##Primeiros passos no projeto:
     1- Clonar o projeto para o computador desejado.
         1.1- Utilize da ferramenta "Git" ou similar. https://git-scm.com/
         1.2- Com a ferramenta instalada, abra um terminal e digite "git clone"
@@ -30,18 +30,18 @@ Primeiros passos no projeto:
         3.2- Para atualizar o repositório local com as alterações do repositório remoto utilize "git pull"
         Ex:
             git pull
-    4- Acesse o site sonarcloud.io
-        4.1- Com a conta utilizada no GitLab, realize login
-        4.2- Localize um sinal de "+" onde deve-se mostrar ao clicar "Analize novo projeto"
-        4.3- Selecione a opção de Analizar novo projeto.
-        4.4- Informe a sua chave API do gitLab
-            4.4.1- Acesse suas configurações pessoais em seguida chaves de acesso https://gitlab.com/-/profile/personal_access_tokens
-            4.4.2- Marque a opção API, dê um nome para a chave e clique em criar.
-            4.4.3- Copie o código abaixo de "Seu novo token de acesso pessoal"
-        4.5- Prossiga com a criação da organização e selecione o projeto criado no GitLab
-        4.6- Escolha a opção recomendada "Com CI/CD do GitLab"
-        4.7- Defina as variáveis de ambiente como informado na tela. DICA: Os links mostrados levam direto ao local de configuração do projeto.
-        4.8- Ao clicar em continuar, selecione na proxima tela a opção maven.
-        4.9- Crie um arquivo de configuração do sonar com o nome de ".gitlab-ci.yml" e copie o conteudo de acordo com as instruções da tela.
-        4.10- Caso já tenha criado o projeto Maven, insira o properties do sonar no arquivo "pom.xml", caso contrário guarde a informação para o uso futuro.
+##Utilizando o site sonarcloud.io
+    1- Com a conta utilizada no GitLab, realize login
+    2- Localize um sinal de "+" onde deve-se mostrar ao clicar "Analize novo projeto"
+    3- Selecione a opção de Analizar novo projeto.
+    4- Informe a sua chave API do gitLab
+        4.1- Acesse suas configurações pessoais em seguida chaves de acesso https://gitlab.com/-/profile/personal_access_tokens
+        4.2- Marque a opção API, dê um nome para a chave e clique em criar.
+        4.3- Copie o código abaixo de "Seu novo token de acesso pessoal"
+    5- Prossiga com a criação da organização e selecione o projeto criado no GitLab
+    6- Escolha a opção recomendada "Com CI/CD do GitLab"
+    7- Defina as variáveis de ambiente como informado na tela. DICA: Os links mostrados levam direto ao local de configuraçãodo projeto.
+    8- Ao clicar em continuar, selecione na proxima tela a opção maven.
+    9- Crie um arquivo de configuração do sonar com o nome de ".gitlab-ci.yml" e copie o conteudo de acordo com as instruçõesda tela.
+    10- Caso já tenha criado o projeto Maven, insira o properties do sonar no arquivo "pom.xml", caso contrário guarde ainformação para o uso futuro.
         
