@@ -30,6 +30,16 @@ O mesmo tem o objetivo de orientar os primeiros passos para a criação de um pr
         3.2 Para atualizar o repositório local com as alterações do repositório remoto utilize "git pull"
         Ex:
             git pull
+
+## Criando o projeto com o Maven
+    1. Escolha uma plataforma de desenvolvimento do seu interesse.
+    2. Crie um projeto Java por meio da plataforma, ou utilize o Maven para criar o projeto. https://maven.apache.org/
+        Obs.: Caso utilize Windows, será necessário incluir o caminho nas variáveis do ambiente.
+    3. É esperado que o seu projeto tenha uma pasta 'src' com duas subpastas 'main' e 'test', alem de um arquivo pom.xml
+
+
+
+
 ## Utilizando o site sonarcloud.io
     1. Com a conta utilizada no GitLab, realize login
     2. Localize um sinal de "+" onde deve-se mostrar ao clicar "Analize novo projeto"
