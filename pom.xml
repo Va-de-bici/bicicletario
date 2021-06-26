@@ -51,10 +51,10 @@
                 <version>${heroku-maven-plugin.version}</version>
                 <configuration>
                     <jdkVersion>1.8</jdkVersion>
-                    <appName>#REVIEW Nome do APP no Heroku</appName>
+                    <appName>pm-echo</appName>
                     <processTypes>
                         <!-- Tell Heroku how to launch your application -->
-                        <web>java -jar ./target/-1.0-SNAPSHOT-jar-with-dependencies.jar</web>
+                        <web>java -jar .target/demo-1.0-SNAPSHOT-jar-with-dependencies.jar</web>
                     </processTypes>
                 </configuration>
             </plugin>
