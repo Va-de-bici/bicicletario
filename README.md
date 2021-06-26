@@ -53,7 +53,7 @@ O mesmo tem o objetivo de orientar os primeiros passos para a criação de um pr
     7. Defina as variáveis de ambiente como informado na tela. DICA: Os links mostrados levam direto ao local de configuraçãodo projeto.
     8. Ao clicar em continuar, selecione na proxima tela a opção maven.
     9. Crie um arquivo de configuração do sonar com o nome de ".gitlab-ci.yml" e salve o conteúdo abaixo.
-        ´´´
+        ```
         variables:
         SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
         GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
@@ -69,12 +69,12 @@ O mesmo tem o objetivo de orientar os primeiros passos para a criação de um pr
             - merge_requests
             - master
             - develop
-        ´´´
+        ```
     10. Caso já tenha criado o projeto Maven, insira o properties do sonar no arquivo "pom.xml", caso contrário guarde a informação para o uso futuro.
-    ´´´xml
+    ```xml
     <properties>
         <sonar.projectKey>nome do projeto no GitLab</sonar.projectKey>
         <sonar.organization> nome da organização </sonar.organization>
     </properties>
-    ´´´
+    ```
         
