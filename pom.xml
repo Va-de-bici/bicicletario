@@ -49,7 +49,7 @@
                     <appName>#REVIEW Nome do APP no Heroku</appName>
                     <processTypes>
                         <!-- Tell Heroku how to launch your application -->
-                        <web>java -jar ./target/#REVIEW Caminho da aplicação</web>
+                        <web>java -jar ./target/-1.0-SNAPSHOT-jar-with-dependencies.jar</web>
                     </processTypes>
                 </configuration>
             </plugin>
