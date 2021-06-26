@@ -1,6 +1,12 @@
 variables:
   SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
   GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+
+before_script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+
 sonarcloud-check:
   image: maven:3.6.3-jdk-11
   cache:
@@ -13,15 +19,8 @@ sonarcloud-check:
     - merge_requests
     - main
     - develop
-before_script:
-    - apt-get update -qy
-    - apt-get install -y ruby-dev
-    - gem install dpl
-stages:
-    - production
-production:
-    type: deploy
-    stage: production
+
+deploy:
     image: ruby:latest
     script:
         - dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_API_KEY
