@@ -16,6 +16,7 @@
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
         <javalin.version>3.13.8</javalin.version>
         <heroku-maven-plugin.version>3.0.4</heroku-maven-plugin.version>
+        <unirest-java.version>4.0.0-RC1</unirest-java.version>
         <!-- JaCoCo thresholds. Increase gradually as you add tests. -->
         <jacoco.unit-tests.limit.instruction-ratio>0%</jacoco.unit-tests.limit.instruction-ratio>
         <jacoco.unit-tests.limit.branch-ratio>0%</jacoco.unit-tests.limit.branch-ratio>
@@ -41,6 +42,13 @@
             <artifactId>javalin</artifactId>
             <version>${javalin.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.konghq</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>${unirest-java.version}</version>
+            <scope>test</scope>
+    	</dependency>
+
     </dependencies>
 
     <build>
@@ -84,26 +92,31 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
-            </plugin>
+                <configuration>
+                    <argLine>@{argLine} -your -extra -arguments</argLine>
+                </configuration>
+            </plugin>  
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco-maven-plugin.version}</version>
                 <executions>
                     <execution>
-                        <id>default-prepare-agent</id>
+                        <id>pre-unit-test</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
                     <execution>
-                        <id>default-report</id>
+                        <id>post-unit-test</id>
+                        <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
                     </execution>
                     <execution>
-                        <id>default-check</id>
+                        <id>check-unit-test</id>
+                        <phase>test</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
