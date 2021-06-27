@@ -8,6 +8,10 @@ public class Controller {
 
     public static void getEcho(Context ctx) {
         String echo = ctx.pathParam("echo");
-        ctx.result(this.echo +" "+ this.echo +" "+ this.echo);
+        ctx.result(echo +" "+ echo +" "+ echo);
+    }
+
+    public static void getRoot(Context ctx) {
+        ctx.result("Isto e um eco, digite algo a mais no caminho");
     }
 }

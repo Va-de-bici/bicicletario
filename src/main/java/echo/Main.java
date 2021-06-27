@@ -1,5 +1,5 @@
 package echo;
-import echo.JavalinApp;
+import echo.util.JavalinApp;
 
 public class Main {
     public static void main(String[] args) {

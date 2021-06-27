@@ -30,8 +30,15 @@ class ControllerTest {
 
     @Test
     void getEchoTest() {
-        HttpResponse response = Unirest.get("http://localhost:7010/getEcho/Artur").asString();
+        HttpResponse response = Unirest.get("http://localhost:7010/Artur").asString();
         assertEquals(200, response.getStatus());
         assertEquals(response.getBody(), "Artur Artur Artur");
+    }
+
+    @Test
+    void getRootTest() {
+        HttpResponse response = Unirest.get("http://localhost:7010/").asString();
+        assertEquals(200, response.getStatus());
+        assertEquals(response.getBody(), "Isto e um eco, digite algo a mais no caminho");
     }
 }

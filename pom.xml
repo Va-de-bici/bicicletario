@@ -17,6 +17,7 @@
         <javalin.version>3.13.8</javalin.version>
         <heroku-maven-plugin.version>3.0.4</heroku-maven-plugin.version>
         <unirest-java.version>4.0.0-RC1</unirest-java.version>
+        <slf4j-simple.version>1.7.30</slf4j-simple.version>
         <!-- JaCoCo thresholds. Increase gradually as you add tests. -->
         <jacoco.unit-tests.limit.instruction-ratio>0%</jacoco.unit-tests.limit.instruction-ratio>
         <jacoco.unit-tests.limit.branch-ratio>0%</jacoco.unit-tests.limit.branch-ratio>
@@ -48,7 +49,12 @@
             <version>${unirest-java.version}</version>
             <scope>test</scope>
     	</dependency>
-
+        <!-- A dependencia abaixo e um logger -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j-simple.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -92,9 +98,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
-                <configuration>
-                    <argLine>@{argLine} -your -extra -arguments</argLine>
-                </configuration>
             </plugin>  
             <plugin>
                 <groupId>org.jacoco</groupId>
