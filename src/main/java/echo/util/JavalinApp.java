@@ -6,17 +6,12 @@ import echo.Controller;
 
 public class JavalinApp {
     private Javalin app = 
-            Javalin.create(config -> {
-                config.defaultContentType = "application/json";
-            }).routes(() -> {
-                path("/:echo", () -> {
-                        get(Controller::getEcho);
+            Javalin.create(config -> config.defaultContentType = "application/json")
+                .routes(() -> {
+                    path("/:echo", () -> get(Controller::getEcho));
+                    path("/", ()-> get(Controller::getRoot));
                     });
-                path("/", ()->{
-                    get(Controller::getRoot);
-                    });
-                });
-                
+                    
 
 
     public void start(int port) {
