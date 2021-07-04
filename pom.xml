@@ -89,7 +89,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>main.echo.Main</mainClass>
+                            <mainClass>echo.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
