@@ -42,8 +42,8 @@ O mesmo tem o objetivo de orientar os primeiros passos para a criação de um pr
 
 ## Utilizando o site sonarcloud.io
     1. Com a conta utilizada no GitLab, realize login
-    2. Localize um sinal de "+" onde deve-se mostrar ao clicar "Analize novo projeto"
-    3. Selecione a opção de Analizar novo projeto.
+    2. Localize um sinal de "+" onde deve-se mostrar ao clicar "Analise novo projeto"
+    3. Selecione a opção de Analisar novo projeto.
     4. Informe a sua chave API do gitLab
         4.1 Acesse suas configurações pessoais em seguida chaves de acesso https://gitlab.com/-/profile/personal_access_tokens
         4.2 Marque a opção API, dê um nome para a chave e clique em criar.
