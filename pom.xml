@@ -89,7 +89,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>echo.Main</mainClass>
+                            <mainClass>src/main/java/echo/Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
