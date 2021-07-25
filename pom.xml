@@ -59,6 +59,18 @@
 
     <build>
         <plugins>
+         <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals><goal>copy-dependencies</goal></goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>com.heroku.sdk</groupId>
                 <artifactId>heroku-maven-plugin</artifactId>
@@ -68,7 +80,7 @@
                     <appName>pm-echo</appName>
                     <processTypes>
                         <!-- Tell Heroku how to launch your application -->
-                        <web>java -jar target/demo-1.0-SNAPSHOT-jar-with-dependencies.jar</web>
+                        <web>java $JAVA_OPTS -cp target/demo-1.0-SNAPSHOT-jar-with-dependencies.jar</web>
                     </processTypes>
                 </configuration>
             </plugin>
@@ -89,7 +101,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>src/main/java/echo/Main</mainClass>
+                            <mainClass>echo.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -109,7 +121,7 @@
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
-                    </execution>
+                    </execution> 
                     <execution>
                         <id>post-unit-test</id>
                         <phase>test</phase>
