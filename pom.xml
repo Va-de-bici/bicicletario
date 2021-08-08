@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>main.echo</groupId>
+    <groupId>echo</groupId>
     <artifactId>demo</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -14,7 +14,7 @@
         <junit.version>5.7.0</junit.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
-        <javalin.version>3.13.8</javalin.version>
+        <javalin.version>3.13.10</javalin.version>
         <heroku-maven-plugin.version>3.0.4</heroku-maven-plugin.version>
         <unirest-java.version>3.11.11</unirest-java.version>
         <slf4j-simple.version>1.7.30</slf4j-simple.version>
