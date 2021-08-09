@@ -53,7 +53,7 @@ O mesmo tem o objetivo de orientar os primeiros passos para a criação de um pr
     7. Defina as variáveis de ambiente como informado na tela. DICA: Os links mostrados levam direto ao local de configuraçãodo projeto.
     8. Ao clicar em continuar, selecione na proxima tela a opção maven.
     9. Crie um arquivo de configuração do sonar com o nome de ".gitlab-ci.yml" e salve o conteúdo abaixo.
-        ```
+```  
         variables:
         SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
         GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
@@ -69,12 +69,86 @@ O mesmo tem o objetivo de orientar os primeiros passos para a criação de um pr
             - merge_requests
             - master
             - develop
-        ```
+        
+```
+
     10. Caso já tenha criado o projeto Maven, insira o properties do sonar no arquivo "pom.xml", caso contrário guarde a informação para o uso futuro.
-    ```xml
+```
     <properties>
         <sonar.projectKey>nome do projeto no GitLab</sonar.projectKey>
         <sonar.organization> nome da organização </sonar.organization>
     </properties>
-    ```
+```
+
         
+## Utilizando o Site Heroku.com
+    1. Crie uma conta na plataforma e realize login.
+    2. Uma vez realizado o login, cliquem em "new" e "create new app".
+    3. Dê um nome para o seu aplicativo e clique em "create app".(o nome será utilizado para acessar a aplicação posteriormente.)
+    4. No canto direito, clique no icone de perfil e posteriormente em "account settings".
+    5. Rolê a tela para baixo até encontrar "api key", copie o valor da chave.
+    6. No seu projeto do gitLab, vá em "settings --> CI/CD" e procure por "variables".
+    7. Crie uma variável com chave HEROKU_APP, valor (O nome dado ao aplicativo) e desmarque o protegido.
+    8. Crie uma variável com chave HEROKU_API_KEY, valor (a sua chave do heroku do passo 5) e desmarque o protegido.
+    9. No arquivo pom.xml adicione em <build> o seguinte:
+```
+    <plugin>
+        <groupId>com.heroku.sdk</groupId>
+        <artifactId>heroku-maven-plugin</artifactId>
+        <version>**VERSÃO MAIS ATUAL DO PLUGIN**</version>
+        <configuration>
+            <jdkVersion>1.8</jdkVersion>
+            <appName>pm-echo</appName>
+            <processTypes>
+                <!-- Tell Heroku how to launch your application -->
+                <web>web: java $JAVA_OPTS -cp target/classes:target/dependency/* (**CAMINHO DA SUA MAIN CLASS**)</web>
+            </processTypes>
+        </configuration>
+    </plugin>
+    <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+            <execution>
+                <phase>package</phase>
+                <goals>
+                    <goal>single</goal>
+                </goals>
+            </execution>
+        </executions>
+        <configuration>
+            <descriptorRefs>
+                <!-- This tells Maven to include all dependencies -->
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+            </descriptorRefs>
+            <archive>
+                <manifest>
+                    <mainClass>**CAMINHO DA SUA MAIN CLASS**</mainClass>
+                </manifest>
+            </archive>
+        </configuration>
+    </plugin>
+```
+    10. Crie um arquivo chamado Procfile (SEM EXTENSÃO) e adicione o seguinte:
+
+```
+    web: java $JAVA_OPTS -cp target/classes:target/dependency/*  (**CAMINHO DA SUA MAIN CLASS**)
+    
+```
+
+    11. Para um deploy automatizado insira no ".gitlab-ci.yml" o seguinte:
+```
+    before_script:
+        - apt-get update -qy
+        - apt-get install -y ruby-dev
+        - gem install dpl
+
+    deploy:
+        image: ruby:latest
+        script:
+            - dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_API_KEY
+        only:
+            - main
+```
+
+
+
