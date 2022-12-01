@@ -18,7 +18,6 @@
         <heroku-maven-plugin.version>3.0.4</heroku-maven-plugin.version>
         <unirest-java.version>3.11.11</unirest-java.version>
         <slf4j-simple.version>1.7.30</slf4j-simple.version>
-        <checkstyle.config.location></checkstyle.config.location>
         <!-- JaCoCo thresholds. Increase gradually as you add tests. -->
         <jacoco.unit-tests.limit.instruction-ratio>0%</jacoco.unit-tests.limit.instruction-ratio>
         <jacoco.unit-tests.limit.branch-ratio>0%</jacoco.unit-tests.limit.branch-ratio>
