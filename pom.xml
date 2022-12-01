@@ -6,6 +6,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <sonar.projectKey>pm-2022-2-grupo-b_bicicletario</sonar.projectKey>
         <sonar.organization>pm-2022-2-grupo-b</sonar.organization>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
