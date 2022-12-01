@@ -3,7 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>echo</groupId>
     <artifactId>demo</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
+
+    <packaging>jar</packaging>
 
     <properties>
         <sonar.projectKey>pm-2022-2-grupo-b_bicicletario</sonar.projectKey>
@@ -104,7 +106,7 @@
                     <appName>pm-echo</appName>
                     <processTypes>
                         <!-- Tell Heroku how to launch your application -->
-                        <web>java $JAVA_OPTS -cp target/classes/vadebici/Main.class</web>
+                        <web>java $JAVA_OPTS -cp target/demo-1.0-jar-with-dependencies.jar</web>
                     </processTypes>
                 </configuration>
             </plugin>
