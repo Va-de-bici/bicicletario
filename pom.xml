@@ -6,8 +6,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <sonar.projectKey>unirio-pm_projeto-base-programacao-modular-unirio-echo</sonar.projectKey>
-        <sonar.organization>unirio-pm</sonar.organization>
+        <sonar.organization>pm-2022-2-grupo-b</sonar.organization>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
