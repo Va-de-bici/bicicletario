@@ -14,7 +14,7 @@ sonarcloud-check:
     paths:
       - .sonar/cache
   script:
-    - mvn verify sonar:sonar
+    - mvn verify sonar:sonar -Dsonar.projectKey=pm-2022-2-grupo-b_bicicletario
   only:
     - merge_requests
     - main
