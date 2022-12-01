@@ -103,7 +103,7 @@
                 <version>${heroku-maven-plugin.version}</version>
                 <configuration>
                     <jdkVersion>1.8</jdkVersion>
-                    <appName>pm-echo</appName>
+                    <appName>va-de-bici</appName>
                     <processTypes>
                         <!-- Tell Heroku how to launch your application -->
                         <web>java $JAVA_OPTS -cp target/classes/vadebici/Main.class</web>
