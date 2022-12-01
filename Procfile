@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes/vadebici/Main.class
+web: java $JAVA_OPTS -cp target/classes:target/ dependency/*  vadebici.Main
