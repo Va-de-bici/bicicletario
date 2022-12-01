@@ -104,7 +104,7 @@
                     <appName>pm-echo</appName>
                     <processTypes>
                         <!-- Tell Heroku how to launch your application -->
-                        <web>java $JAVA_OPTS -cp target/demo-1.0-SNAPSHOT-jar-with-dependencies.jar</web>
+                        <web>java $JAVA_OPTS -cp target/classes/vadebici/Main.class</web>
                     </processTypes>
                 </configuration>
             </plugin>
