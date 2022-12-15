@@ -1,12 +1,13 @@
 package vadebici.servico_aluguel.repo;
 
 import vadebici.servico_aluguel.db_in_memory.Database;
-import vadebici.servico_aluguel.dom.*;
+import vadebici.servico_aluguel.dom.Ciclista;
+import vadebici.servico_aluguel.dom.Email;
+import vadebici.servico_aluguel.dom.MeioDePagamento;
 import vadebici.servico_aluguel.dom.dto.CiclistaJsonApi;
 import vadebici.servico_aluguel.exception.GenericApiException;
 import vadebici.servico_aluguel.service.ServicoExterno;
 import vadebici.servico_aluguel.util.Validacao;
-import vadebici.servico_aluguel.util.Url;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -53,7 +54,7 @@ public class CicliRepo {
         ciclista.setStatus(false);
         Database.TABELA_CICLISTA.put(id, ciclista);
         String mensagem = String.format("Cadastro realizado com sucesso. Por favor, confirme seu cadastro " +
-                "clicando no link\n\n %s/ciclista/%s/ativar", Url.BASE_URL, ciclista.getId());
+                "clicando no link\n\n https://va-de-bici.herokuapp.com/ciclista/%s/ativar", ciclista.getId());
         enviaEmail(ciclista.getEmail(), mensagem);
         return ciclista;
     }
