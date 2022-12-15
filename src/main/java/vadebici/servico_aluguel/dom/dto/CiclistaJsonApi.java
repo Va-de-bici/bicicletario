@@ -25,12 +25,14 @@ public class CiclistaJsonApi {
     @Email(message = "O campo 'email' deve ser válido")
     private String email;
 
-
     private String cpf;
 
     private Boolean status;
 
     private Passaporte passaporte;
+
+    @NotBlank(message = "O campo 'urlFotoDocumento' é obrigatório")
+    private String urlFotoDocumento;
 
 
 
@@ -100,5 +102,11 @@ public class CiclistaJsonApi {
         this.passaporte = passaporte;
     }
 
+    public String getUrlFotoDocumento() {
+        return urlFotoDocumento;
+    }
 
+    public void setUrlFotoDocumento(String urlFotoDocumento) {
+        this.urlFotoDocumento = urlFotoDocumento;
+    }
 }

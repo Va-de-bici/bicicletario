@@ -20,16 +20,18 @@ public class Ciclista {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "America/Sao_Paulo")
     private Date nascimento;
     @NotBlank(message = "O campo 'nacionalidade' é obrigatório")
-
     private String nacionalidade;
     private String cpf;
 
     private Passaporte passaporte;
     @NotBlank(message = "O campo 'senha' é obrigatório")
     private String senha;
-    @NotNull(message = "O campo 'meiodDePagamento' é obrigatório")
+    @NotNull(message = "O campo 'meioDePagamento' é obrigatório")
     private MeioDePagamento meioDePagamento;
     private Boolean status;
+
+    @NotBlank(message = "O campo 'urlFotoDocumento' é obrigatório")
+    private String urlFotoDocumento;
 
     @Override
     public String toString() {
@@ -43,6 +45,7 @@ public class Ciclista {
                 ", passaporte=" + passaporte +
                 ", meioDePagamento=" + meioDePagamento +
                 ", status=" + status +
+                ", urlFotoDocumento=" + urlFotoDocumento +
                 '}';
     }
 
@@ -51,12 +54,12 @@ public class Ciclista {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ciclista ciclista = (Ciclista) o;
-        return Objects.equals(id, ciclista.id) && Objects.equals(email, ciclista.email) && Objects.equals(nome, ciclista.nome) && Objects.equals(nascimento, ciclista.nascimento) && Objects.equals(nacionalidade, ciclista.nacionalidade) && Objects.equals(cpf, ciclista.cpf) && Objects.equals(passaporte, ciclista.passaporte) && Objects.equals(senha, ciclista.senha) && Objects.equals(meioDePagamento, ciclista.meioDePagamento) && Objects.equals(status, ciclista.status);
+        return Objects.equals(id, ciclista.id) && Objects.equals(email, ciclista.email) && Objects.equals(nome, ciclista.nome) && Objects.equals(nascimento, ciclista.nascimento) && Objects.equals(nacionalidade, ciclista.nacionalidade) && Objects.equals(cpf, ciclista.cpf) && Objects.equals(passaporte, ciclista.passaporte) && Objects.equals(senha, ciclista.senha) && Objects.equals(meioDePagamento, ciclista.meioDePagamento) && Objects.equals(status, ciclista.status) && Objects.equals(urlFotoDocumento, ciclista.urlFotoDocumento);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, nome, nascimento, nacionalidade, cpf, passaporte, senha, meioDePagamento, status);
+        return Objects.hash(id, email, nome, nascimento, nacionalidade, cpf, passaporte, senha, meioDePagamento, status, urlFotoDocumento);
     }
 
     public String getId() {
@@ -137,5 +140,13 @@ public class Ciclista {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public String getUrlFotoDocumento() {
+        return urlFotoDocumento;
+    }
+
+    public void setUrlFotoDocumento(String urlFotoDocumento) {
+        this.urlFotoDocumento = urlFotoDocumento;
     }
 }

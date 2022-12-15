@@ -72,6 +72,7 @@ public class CicliRepo {
         ciclistaJsonApi.setCpf(ciclista.getCpf());
         ciclistaJsonApi.setNome(ciclista.getNome());
         ciclistaJsonApi.setPassaporte(ciclista.getPassaporte());
+        ciclistaJsonApi.setUrlFotoDocumento(ciclista.getUrlFotoDocumento());
         return ciclistaJsonApi;
     }
 
@@ -90,6 +91,7 @@ public class CicliRepo {
         ciclista.setNacionalidade(ciclistaJsonApi.getNacionalidade());
         ciclista.setPassaporte(ciclistaJsonApi.getPassaporte());
         ciclista.setStatus(ciclistaJsonApi.getStatus());
+        ciclista.setUrlFotoDocumento(ciclistaJsonApi.getUrlFotoDocumento());
         Validacao.validaNacionalidade(ciclista);
         Database.TABELA_CICLISTA.put(id, ciclista);
         ciclistaJsonApi.setId(id);

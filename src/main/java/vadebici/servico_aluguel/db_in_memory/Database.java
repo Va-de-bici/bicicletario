@@ -54,6 +54,7 @@ public class Database {
         ciclista.setStatus(true);
         ciclista.setNascimento(new GregorianCalendar(2000, Calendar.APRIL, 19, 12, 0, 0).getTime());
         ciclista.setMeioDePagamento(meioDePagamento);
+        ciclista.setUrlFotoDocumento("https://imagens.ebc.com.br/JR7Fb8ISNmbrQZq0A-I6sSAbDDs=/1170x700/smart/https://agenciabrasil.ebc.com.br/sites/default/files/thumbnails/image/cpf_receita_federal0107200467.jpg?itok=iX_mVn8n");
         return ciclista;
     }
 }
