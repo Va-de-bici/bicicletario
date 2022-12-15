@@ -1,0 +1,59 @@
+package vadebici.servico_equipamento.repo;
+
+import vadebici.servico_equipamento.db_in_memory.Database;
+import vadebici.servico_equipamento.dom.Tranca;
+import vadebici.servico_equipamento.dom.TrancaStatus;
+import vadebici.servico_equipamento.dom.dto.PostTranca;
+import vadebici.exception.GenericApiException;
+import vadebici.servico_equipamento.util.Validacao;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class TrancaRepo {
+    public Tranca salvarTranca(PostTranca postTranca) {
+        Validacao.validarCampos(postTranca);
+        Tranca tranca = new Tranca();
+        String id = UUID.randomUUID().toString();
+        tranca.setId(id);
+        tranca.setStatus(postTranca.getStatus());
+        tranca.setLocalizacao(postTranca.getLocalizacao());
+        tranca.setModelo(postTranca.getModelo());
+        tranca.setAnoDeFabricacao(postTranca.getAnoDeFabricacao());
+        tranca.setNumero(String.valueOf(postTranca.getNumero()));
+        Database.TRANCA_TABLE.put(id, tranca);
+        return tranca;
+    }
+
+    public List<Tranca> buscarTrancas() {
+        return Database.TRANCA_TABLE.keySet()
+                .stream()
+                .map(Database.TRANCA_TABLE::get)
+                .collect(Collectors.toList());
+    }
+
+    public Tranca buscarTranca(String id) {
+        Tranca tranca = Database.TRANCA_TABLE.get(id);
+        if (tranca == null) throw new GenericApiException(404, "Tranca não encontrado");
+        return tranca;
+    }
+
+    public Tranca atualizarTranca(String id, Tranca novaTranca){
+        Validacao.validarCampos(novaTranca);
+        buscarTranca(id);
+        Database.TRANCA_TABLE.replace(id, novaTranca);
+        return novaTranca;
+    }
+
+    public void deletarTranca(String id){
+        Tranca tranca = buscarTranca(id);
+        if (tranca.getIdBicicleta() != null) throw new GenericApiException(422, "Tranca não pode ser removida poís possui uma bicicleta.");
+        Database.TRANCA_TABLE.remove(id);
+    }
+
+    public Tranca alterarStatus(String id, String status){
+        Tranca tranca = buscarTranca(id);
+        tranca.setStatus(TrancaStatus.valueOf(status));
+        return Database.TRANCA_TABLE.replace(tranca.getId(), tranca);
+    }
+}

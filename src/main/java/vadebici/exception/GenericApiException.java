@@ -1,4 +1,4 @@
-package vadebici.servico_aluguel.exception;
+package vadebici.exception;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

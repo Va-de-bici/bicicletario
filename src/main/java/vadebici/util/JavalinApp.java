@@ -4,11 +4,15 @@ import io.javalin.Javalin;
 import io.javalin.plugin.json.JavalinJson;
 import vadebici.servico_aluguel.controller.FuncionarioController;
 import vadebici.servico_aluguel.controller.CiclistaController;
-import vadebici.servico_aluguel.exception.GenericApiException;
+import vadebici.exception.GenericApiException;
+import vadebici.servico_equipamento.controller.TotemController;
+import vadebici.servico_equipamento.controller.TrancaController;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class JavalinApp {
+
+    private static String PATH_TRANCA = "/tranca/:idTranca";
 
     private final Javalin app =
             Javalin.create(config -> config.defaultContentType = "application/json")
@@ -28,6 +32,19 @@ public class JavalinApp {
                         path("/ciclista/existeEmail/:email", () -> get(CiclistaController::verificaEmail));
 
                         path("/cartaoDeCredito/:idCiclista", () -> get(CiclistaController::retornaCartao));
+
+                        path("/totem", () -> post(TotemController::salvarTotem));
+                        path("/totem", () -> get(TotemController::buscarTotens));
+                        path("/totem/:idTotem", () -> delete(TotemController::deletarTotem));
+                        path("/totem/:idTotem", () -> put(TotemController::atualizarTotem));
+                        path("/totem/:idTotem/trancas", () -> get(TotemController::buscarTrancasPorTotem));
+
+                        path("/tranca", () -> get(TrancaController::buscarTrancas));
+                        path("/tranca", () -> post(TrancaController::salvarTranca));
+                        path(PATH_TRANCA, () -> get(TrancaController::buscarTranca));
+                        path(PATH_TRANCA, () -> delete(TrancaController::deletarTranca));
+                        path(PATH_TRANCA, () -> put(TrancaController::atualizarTranca));
+                        path(PATH_TRANCA + "/status/:acao", () -> post(TrancaController::alterarStatus));
                     }).error(500, ctx -> {
                         GenericApiException ex = new GenericApiException(500, "Ocorreu um erro durante a operação");
                         ctx.result(JavalinJson.toJson(ex));

@@ -5,7 +5,7 @@ import vadebici.servico_aluguel.dom.Ciclista;
 import vadebici.servico_aluguel.dom.Email;
 import vadebici.servico_aluguel.dom.MeioDePagamento;
 import vadebici.servico_aluguel.dom.dto.CiclistaJsonApi;
-import vadebici.servico_aluguel.exception.GenericApiException;
+import vadebici.exception.GenericApiException;
 import vadebici.servico_aluguel.service.ServicoExterno;
 import vadebici.servico_aluguel.util.Validacao;
 

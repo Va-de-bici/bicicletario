@@ -3,7 +3,7 @@ package vadebici.servico_aluguel.repo;
 import vadebici.servico_aluguel.db_in_memory.Database;
 import vadebici.servico_aluguel.dom.Funcionario;
 import vadebici.servico_aluguel.util.Validacao;
-import vadebici.servico_aluguel.exception.GenericApiException;
+import vadebici.exception.GenericApiException;
 
 import java.util.List;
 import java.util.UUID;

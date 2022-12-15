@@ -4,7 +4,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator;
-import vadebici.servico_aluguel.exception.GenericApiException;
+import vadebici.exception.GenericApiException;
 import vadebici.servico_aluguel.dom.*;
 
 import java.util.Set;
