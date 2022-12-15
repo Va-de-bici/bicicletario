@@ -71,6 +71,7 @@ public class CicliRepo {
         ciclistaJsonApi.setNacionalidade(ciclista.getNacionalidade());
         ciclistaJsonApi.setCpf(ciclista.getCpf());
         ciclistaJsonApi.setNome(ciclista.getNome());
+        ciclistaJsonApi.setNascimento(ciclista.getNascimento());
         ciclistaJsonApi.setPassaporte(ciclista.getPassaporte());
         ciclistaJsonApi.setUrlFotoDocumento(ciclista.getUrlFotoDocumento());
         return ciclistaJsonApi;
