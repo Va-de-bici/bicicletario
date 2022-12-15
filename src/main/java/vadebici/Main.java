@@ -7,10 +7,13 @@ public class Main {
         // Import Databases
         vadebici.servico_aluguel.db_in_memory.Database Database_Aluguel = null;
         vadebici.servico_equipamento.db_in_memory.Database Database_Equipamento = null;
+        vadebici.servico_externo.db_in_memory.Database Database_Externo = null;
+        //
 
         JavalinApp app = new JavalinApp();
         Database_Aluguel.carregarDados();
         Database_Equipamento.carregarDados();
+        Database_Externo.carregarDados();
         app.start(getHerokuAssignedPort());
     }
 

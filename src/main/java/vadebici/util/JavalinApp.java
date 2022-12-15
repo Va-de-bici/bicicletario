@@ -7,6 +7,8 @@ import vadebici.servico_aluguel.controller.CiclistaController;
 import vadebici.exception.GenericApiException;
 import vadebici.servico_equipamento.controller.TotemController;
 import vadebici.servico_equipamento.controller.TrancaController;
+import vadebici.servico_externo.controller.EmailController;
+import vadebici.servico_externo.controller.CartaoCreditoController;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
 
@@ -45,6 +47,10 @@ public class JavalinApp {
                         path(PATH_TRANCA, () -> delete(TrancaController::deletarTranca));
                         path(PATH_TRANCA, () -> put(TrancaController::atualizarTranca));
                         path(PATH_TRANCA + "/status/:acao", () -> post(TrancaController::alterarStatus));
+
+                        path("/enviarEmail", () -> post(EmailController::enviaEmail));
+                        path("/validarCartaoDeCredito", () -> post(CartaoCreditoController::validaCartaoCredito));
+
                     }).error(500, ctx -> {
                         GenericApiException ex = new GenericApiException(500, "Ocorreu um erro durante a operação");
                         ctx.result(JavalinJson.toJson(ex));
