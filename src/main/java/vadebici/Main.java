@@ -1,12 +1,16 @@
 package vadebici;
 
-import vadebici.servico_aluguel.db_in_memory.Database;
 import vadebici.util.JavalinApp;
 
 public class Main {
     public static void main(String[] args) {
+        // Import Databases
+        vadebici.servico_aluguel.db_in_memory.Database Database_Aluguel = null;
+        vadebici.servico_equipamento.db_in_memory.Database Database_Equipamento = null;
+
         JavalinApp app = new JavalinApp();
-        Database.carregarDados();
+        Database_Aluguel.carregarDados();
+        Database_Equipamento.carregarDados();
         app.start(getHerokuAssignedPort());
     }
 
