@@ -49,7 +49,7 @@ public class Database {
         ciclista.setNome("Leandro");
         ciclista.setCpf("99999999999");
         ciclista.setEmail("leandroabreusa@edu.unirio.br");
-        ciclista.setNacionalidade("BRASILEIRO");
+        ciclista.setNacionalidade("BRA");
         ciclista.setSenha("12345678");
         ciclista.setStatus(true);
         ciclista.setNascimento(new GregorianCalendar(2000, Calendar.APRIL, 19, 12, 0, 0).getTime());
