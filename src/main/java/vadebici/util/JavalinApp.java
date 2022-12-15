@@ -49,7 +49,7 @@ public class JavalinApp {
                         path(PATH_TRANCA + "/status/:acao", () -> post(TrancaController::alterarStatus));
 
                         path("/enviarEmail", () -> post(EmailController::enviaEmail));
-                        path("/validarCartaoDeCredito", () -> post(CartaoCreditoController::validaCartaoCredito));
+                        path("/validaCartaoDeCredito", () -> post(CartaoCreditoController::validaCartaoCredito));
 
                     }).error(500, ctx -> {
                         GenericApiException ex = new GenericApiException(500, "Ocorreu um erro durante a operação");
