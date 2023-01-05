@@ -58,6 +58,7 @@ public class JavalinApp {
                         path("/enviarEmail", () -> post(EmailController::enviaEmail));
                         path("/validaCartaoDeCredito", () -> post(CartaoCreditoController::validaCartaoCredito));
 
+
                     }).error(500, ctx -> {
                         GenericApiException ex = new GenericApiException(500, "Ocorreu um erro durante a operação");
                         ctx.result(JavalinJson.toJson(ex));
