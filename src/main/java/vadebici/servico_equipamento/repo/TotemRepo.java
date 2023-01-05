@@ -1,13 +1,14 @@
 package vadebici.servico_equipamento.repo;
 
+import vadebici.exception.GenericApiException;
 import vadebici.servico_equipamento.db_in_memory.Database;
 import vadebici.servico_equipamento.dom.Totem;
 import vadebici.servico_equipamento.dom.Tranca;
 import vadebici.servico_equipamento.dom.dto.PostTotem;
-import vadebici.exception.GenericApiException;
 import vadebici.servico_equipamento.util.Validacao;
 
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class TotemRepo {

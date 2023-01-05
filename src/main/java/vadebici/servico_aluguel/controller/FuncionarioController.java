@@ -3,20 +3,23 @@ package vadebici.servico_aluguel.controller;
 import io.javalin.http.Context;
 import io.javalin.plugin.json.JavalinJson;
 import vadebici.servico_aluguel.dom.Funcionario;
-import vadebici.servico_aluguel.repo.FuncRepo;
+import vadebici.servico_aluguel.repo.FuncionarioRepositorio;
+import vadebici.servico_aluguel.util.Validacao;
 
 import java.util.List;
 
 public class FuncionarioController {
-    public static final FuncRepo FUNC_REPO = new FuncRepo();
-
-    private FuncionarioController(){}
+    public static final FuncionarioRepositorio FUNC_REPO = new FuncionarioRepositorio();
+    public static final Validacao VALIDACAO = new Validacao();
 
     private static final String CAMPO_ID_FUNCIONARIO = "idFuncionario";
+
+    private FuncionarioController(){}
 
     public static void guardaFunc(Context ctx) {
         String body = ctx.body();
         Funcionario postFunc = JavalinJson.getFromJsonMapper().map(body, Funcionario.class);
+        VALIDACAO.validaAtributos(postFunc, 422);
         Funcionario func = FUNC_REPO.guardaFuncionario(postFunc);
         String response = JavalinJson.toJson(func);
         ctx.result(response);
@@ -41,6 +44,7 @@ public class FuncionarioController {
         String body = ctx.body();
         String id = ctx.pathParam(CAMPO_ID_FUNCIONARIO);
         Funcionario funcionario = JavalinJson.getFromJsonMapper().map(body, Funcionario.class);
+        VALIDACAO.validaAtributos(funcionario, 422);
         Funcionario response = FUNC_REPO.alteraFuncionario(id, funcionario);
         ctx.status(200);
         ctx.result(JavalinJson.toJson(response));

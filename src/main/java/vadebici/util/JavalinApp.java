@@ -2,13 +2,13 @@ package vadebici.util;
 
 import io.javalin.Javalin;
 import io.javalin.plugin.json.JavalinJson;
-import vadebici.servico_aluguel.controller.FuncionarioController;
-import vadebici.servico_aluguel.controller.CiclistaController;
 import vadebici.exception.GenericApiException;
+import vadebici.servico_aluguel.controller.CiclistaController;
+import vadebici.servico_aluguel.controller.FuncionarioController;
 import vadebici.servico_equipamento.controller.TotemController;
 import vadebici.servico_equipamento.controller.TrancaController;
-import vadebici.servico_externo.controller.EmailController;
 import vadebici.servico_externo.controller.CartaoCreditoController;
+import vadebici.servico_externo.controller.EmailController;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
 
@@ -28,12 +28,19 @@ public class JavalinApp {
                         path(FUNCIONARIO_COM_ID, () -> delete(FuncionarioController::deletaFunc));
                         path(FUNCIONARIO_COM_ID, () -> put(FuncionarioController::alteraFunc));
 
-                        path("/ciclista", () -> post(CiclistaController::guardaCicli));
-                        path("/ciclista/:idCiclista", () -> get(CiclistaController::retornaCicli));
+                        path("/ciclista", () -> post(CiclistaController::guardaCiclista));
+                        path("/ciclista/:idCiclista", () -> get(CiclistaController::retornaCiclista));
+                        path("/ciclista/:idCiclista", () -> put(CiclistaController::alteraCiclista));
                         path("/ciclista/:idCiclista/ativar", () -> post(CiclistaController::ativaCadastro));
+                        path("/ciclista/existeEmail/", () -> get(CiclistaController::emailNaoEnviado));
                         path("/ciclista/existeEmail/:email", () -> get(CiclistaController::verificaEmail));
+                        path("/ciclista/:idCiclista/permiteAluguel", () -> get(CiclistaController::permiteAluguel));
+                        path("/ciclista/:idCiclista/notificaAluguelEmCurso", () -> post(CiclistaController::notificaAluguelEmCurso));
 
                         path("/cartaoDeCredito/:idCiclista", () -> get(CiclistaController::retornaCartao));
+                        path("/cartaoDeCredito/:idCiclista", () -> put(CiclistaController::alteraCartao));
+
+                        path("/aluguel", () -> post(CiclistaController::alugar));
 
                         path("/totem", () -> post(TotemController::salvarTotem));
                         path("/totem", () -> get(TotemController::buscarTotens));

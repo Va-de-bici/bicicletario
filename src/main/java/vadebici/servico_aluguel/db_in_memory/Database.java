@@ -11,10 +11,12 @@ public class Database {
 
     public static final Map<String, Funcionario> TABELA_FUNCIONARIO = new HashMap<>();
     public static final Map<String, Ciclista> TABELA_CICLISTA = new HashMap<>();
+    public static final Map<String, Aluguel> TABELA_ALUGUEL = new HashMap<>();
 
     public static void limpar() {
         TABELA_CICLISTA.clear();
         TABELA_FUNCIONARIO.clear();
+        TABELA_ALUGUEL.clear();
     }
 
     public static void carregarDados() {
@@ -23,6 +25,7 @@ public class Database {
         Funcionario funcionario = getFuncionario();
         TABELA_CICLISTA.put(ciclista.getId(), ciclista);
         TABELA_FUNCIONARIO.put(funcionario.getId(), funcionario);
+        TABELA_ALUGUEL.clear();
     }
 
     private static Funcionario getFuncionario() {
