@@ -3,15 +3,16 @@ package vadebici.servico_equipamento.controller;
 import vadebici.servico_equipamento.dom.Totem;
 import vadebici.servico_equipamento.dom.Tranca;
 import vadebici.servico_equipamento.dom.dto.PostTotem;
-import vadebici.servico_equipamento.repo.TotemRepo;
+import vadebici.servico_equipamento.repo.TotemRepositorio;
 import io.javalin.http.Context;
 import io.javalin.plugin.json.JavalinJson;
+import vadebici.servico_equipamento.util.Validacao;
 
 import java.util.List;
 
 public class TotemController {
 
-    public static final TotemRepo TOTEM_REPO = new TotemRepo();
+    public static final TotemRepositorio TOTEM_REPO = new TotemRepositorio();
     private static final String PATH_ID = "idTotem";
 
     private TotemController(){}
@@ -19,6 +20,7 @@ public class TotemController {
     public static void salvarTotem(Context ctx) {
         String body = ctx.body();
         PostTotem postTotem = JavalinJson.getFromJsonMapper().map(body, PostTotem.class);
+        Validacao.validarCampos(postTotem);
         Totem totem = TOTEM_REPO.salvarTotem(postTotem);
         String response = JavalinJson.toJson(totem);
         ctx.result(response);

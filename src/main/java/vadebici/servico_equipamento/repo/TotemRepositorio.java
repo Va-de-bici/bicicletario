@@ -1,20 +1,18 @@
 package vadebici.servico_equipamento.repo;
 
-import vadebici.exception.GenericApiException;
 import vadebici.servico_equipamento.db_in_memory.Database;
 import vadebici.servico_equipamento.dom.Totem;
 import vadebici.servico_equipamento.dom.Tranca;
 import vadebici.servico_equipamento.dom.dto.PostTotem;
-import vadebici.servico_equipamento.util.Validacao;
+import vadebici.exception.GenericApiException;
 
-import java.util.List;
-import java.util.UUID;
+
+import java.util.*;
 import java.util.stream.Collectors;
 
-public class TotemRepo {
+public class TotemRepositorio {
 
     public Totem salvarTotem(PostTotem postTotem) {
-        Validacao.validarCampos(postTotem);
         Totem totem = new Totem();
         String id = UUID.randomUUID().toString();
         totem.setLocalizacao(postTotem.getLocalizacao());
@@ -53,7 +51,7 @@ public class TotemRepo {
         return Database.TRANCA_TABLE.keySet()
                 .stream()
                 .map(Database.TRANCA_TABLE::get)
-                .filter((t) -> t.getIdTotem().equals(id))
+                .filter(t -> t.getIdTotem().equals(id))
                 .collect(Collectors.toList());
     }
 }

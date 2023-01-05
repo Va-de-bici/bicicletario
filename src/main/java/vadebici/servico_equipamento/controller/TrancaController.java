@@ -2,7 +2,9 @@ package vadebici.servico_equipamento.controller;
 
 import vadebici.servico_equipamento.dom.Tranca;
 import vadebici.servico_equipamento.dom.dto.PostTranca;
-import vadebici.servico_equipamento.repo.TrancaRepo;
+import vadebici.servico_equipamento.dom.dto.TrancaNaRede;
+import vadebici.servico_equipamento.repo.TrancaRepositorio;
+import vadebici.servico_equipamento.util.Validacao;
 import io.javalin.http.Context;
 import io.javalin.plugin.json.JavalinJson;
 
@@ -12,12 +14,13 @@ import java.util.List;
 public class TrancaController {
 
     private TrancaController(){}
-    public static final TrancaRepo trancaRepositorio = new TrancaRepo();
+    public static final TrancaRepositorio trancaRepositorio = new TrancaRepositorio();
     private static final String TRANCA_ID = "idTranca";
 
     public static void salvarTranca(Context ctx) {
         String body = ctx.body();
         PostTranca postTranca = JavalinJson.getFromJsonMapper().map(body, PostTranca.class);
+        Validacao.validarCampos(postTranca);
         Tranca tranca = trancaRepositorio.salvarTranca(postTranca);
         String response = JavalinJson.toJson(tranca);
         ctx.result(response);
@@ -44,6 +47,7 @@ public class TrancaController {
         String id = ctx.pathParam(TRANCA_ID);
         Tranca tranca = JavalinJson.getFromJsonMapper().map(body, Tranca.class);
         Tranca resultado = trancaRepositorio.atualizarTranca(id, tranca);
+        Validacao.validarCampos(tranca);
         ctx.status(200);
         ctx.result(JavalinJson.toJson(resultado));
     }
@@ -61,5 +65,13 @@ public class TrancaController {
         String response = JavalinJson.getToJsonMapper().map(tranca);
         ctx.status(200);
         ctx.result(response);
+    }
+
+    public static void integrarNaRede(Context ctx) {
+        String body = ctx.body();
+        TrancaNaRede trancaNaRede = JavalinJson.getFromJsonMapper().map(body, TrancaNaRede.class);
+        Validacao.validarCampos(trancaNaRede);
+        trancaRepositorio.integrarNaRede(trancaNaRede);
+        ctx.status(200);
     }
 }

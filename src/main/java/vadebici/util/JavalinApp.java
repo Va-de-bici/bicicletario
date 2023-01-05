@@ -5,20 +5,25 @@ import io.javalin.plugin.json.JavalinJson;
 import vadebici.exception.GenericApiException;
 import vadebici.servico_aluguel.controller.CiclistaController;
 import vadebici.servico_aluguel.controller.FuncionarioController;
+import vadebici.servico_equipamento.controller.BicicletaController;
 import vadebici.servico_equipamento.controller.TotemController;
 import vadebici.servico_equipamento.controller.TrancaController;
 import vadebici.servico_externo.controller.CartaoCreditoController;
 import vadebici.servico_externo.controller.EmailController;
+import vadebici.servico_externo.pagamento.Cobranca;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class JavalinApp {
 
     private static String PATH_TRANCA = "/tranca/:idTranca";
+    private static String PATH_BICICLETA = "/bicicleta/:idBicicleta";
 
     private final Javalin app =
             Javalin.create(config -> config.defaultContentType = "application/json")
                     .routes(() -> {
+                        // Serviço Aluguel
+
                         final String FUNCIONARIO_COM_ID = "/funcionario/:idFuncionario";
 
                         path("/funcionario", () -> get(FuncionarioController::retornaFuncs));
@@ -42,8 +47,10 @@ public class JavalinApp {
 
                         path("/aluguel", () -> post(CiclistaController::alugar));
 
-                        path("/totem", () -> post(TotemController::salvarTotem));
+                        // Serviço Equipamento
+
                         path("/totem", () -> get(TotemController::buscarTotens));
+                        path("/totem", () -> post(TotemController::salvarTotem));
                         path("/totem/:idTotem", () -> delete(TotemController::deletarTotem));
                         path("/totem/:idTotem", () -> put(TotemController::atualizarTotem));
                         path("/totem/:idTotem/trancas", () -> get(TotemController::buscarTrancasPorTotem));
@@ -55,6 +62,17 @@ public class JavalinApp {
                         path(PATH_TRANCA, () -> put(TrancaController::atualizarTranca));
                         path(PATH_TRANCA + "/status/:acao", () -> post(TrancaController::alterarStatus));
 
+                        path("/bicicleta", () -> get(BicicletaController::buscarBicicletas));
+                        path("/bicicleta", () -> post(BicicletaController::salvarBicicleta));
+                        path(PATH_BICICLETA, () -> get(BicicletaController::buscarBicicleta));
+                        path(PATH_BICICLETA, () -> delete(BicicletaController::deletarBicicleta));
+                        path(PATH_BICICLETA, () -> put(BicicletaController::atualizarBicicleta));
+                        path(PATH_BICICLETA + "/status/:acao", () -> post(BicicletaController::alterarStatus));
+
+                        // Serviço Externo
+
+                        //path("/cobranca/:id", ()-> get(Cobranca::getCobranca));
+                        path("/cobranca",  ()-> post(Cobranca::realizaCobranca));
                         path("/enviarEmail", () -> post(EmailController::enviaEmail));
                         path("/validaCartaoDeCredito", () -> post(CartaoCreditoController::validaCartaoCredito));
 
