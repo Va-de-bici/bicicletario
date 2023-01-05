@@ -105,7 +105,7 @@
                     <appName>va-de-bici</appName>
                     <processTypes>
                         <!-- Tell Heroku how to launch your application -->
-                        <web>java $JAVA_OPTS -cp target/classes/vadebici/Main.class</web>
+                        <web>java $JAVA_OPTS -cp target/classes:target/dependency/*  vadebici.Main</web>
                     </processTypes>
                 </configuration>
             </plugin>
@@ -126,7 +126,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>echo.Main</mainClass>
+                            <mainClass>vadebici.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
