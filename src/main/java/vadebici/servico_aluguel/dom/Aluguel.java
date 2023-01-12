@@ -1,6 +1,8 @@
 package vadebici.servico_aluguel.dom;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
@@ -15,20 +17,40 @@ public class Aluguel {
     private Date horaFim;
     private String trancaInicio;
     private String trancaFim;
-    private String cobranca;
+    private String[] cobranca;
     private String ciclista;
 
     @Override
     public String toString() {
-        return "Emprestimo {" + "\n" +
-                "bicicleta='" + bicicleta + "\n" +
+        String stringCobrancas;
+
+        if (this.cobranca != null) {
+            StringBuilder stringCobrancasBuilder = new StringBuilder("[" + "\n");
+            for (String c : this.cobranca) {
+                if (c != null) {
+                    stringCobrancasBuilder.append(c);
+
+                    if (c.equals(this.cobranca[0]))
+                        stringCobrancasBuilder.append(",");
+
+                    stringCobrancasBuilder.append("\n");
+                }
+            }
+            stringCobrancas = stringCobrancasBuilder.toString();
+
+            stringCobrancas += "]" + "\n";
+        } else
+            stringCobrancas = null;
+
+        return "Aluguel {" + "\n" +
+                "bicicleta='" + bicicleta + "'\n" +
                 "horaInicio=" + horaInicio + "\n" +
                 "horaFim=" + horaFim + "\n" +
-                "trancaInicio='" + trancaInicio + "\n" +
-                "trancaFim='" + trancaFim + "\n" +
-                "cobranca='" + cobranca + "\n" +
-                "ciclista='" + ciclista + "\n" +
-                '}';
+                "trancaInicio='" + trancaInicio + "'\n" +
+                "trancaFim='" + trancaFim + "'\n" +
+                "cobranca=" + stringCobrancas + "\n" +
+                "ciclista='" + ciclista + "'\n" +
+                "}";
     }
 
     @Override
@@ -36,12 +58,12 @@ public class Aluguel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Aluguel that = (Aluguel) o;
-        return Objects.equals(bicicleta, that.bicicleta) && Objects.equals(horaInicio, that.horaInicio) && Objects.equals(horaFim, that.horaFim) && Objects.equals(trancaInicio, that.trancaInicio) && Objects.equals(trancaFim, that.trancaFim) && Objects.equals(cobranca, that.cobranca) && Objects.equals(ciclista, that.ciclista);
+        return Objects.equals(bicicleta, that.bicicleta) && Objects.equals(horaInicio, that.horaInicio) && Objects.equals(horaFim, that.horaFim) && Objects.equals(trancaInicio, that.trancaInicio) && Objects.equals(trancaFim, that.trancaFim) && Arrays.equals(cobranca, that.cobranca) && Objects.equals(ciclista, that.ciclista);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bicicleta, horaInicio, horaFim, trancaInicio, trancaFim, cobranca, ciclista);
+        return Objects.hash(bicicleta, horaInicio, horaFim, trancaInicio, trancaFim, Arrays.hashCode(cobranca), ciclista);
     }
 
     public String getId() {
@@ -92,11 +114,11 @@ public class Aluguel {
         this.trancaFim = trancaFim;
     }
 
-    public String getCobranca() {
+    public String[] getCobranca() {
         return cobranca;
     }
 
-    public void setCobranca(String cobranca) {
+    public void setCobranca(String[] cobranca) {
         this.cobranca = cobranca;
     }
 

@@ -1,23 +1,27 @@
 package vadebici.servico_aluguel.repo;
 
-import vadebici.exception.GenericApiException;
-import vadebici.servico_aluguel.db_in_memory.Database;
 import vadebici.servico_aluguel.dom.*;
 import vadebici.servico_aluguel.dom.dto.CiclistaJsonApi;
+import vadebici.exception.GenericApiException;
 
-import java.util.Date;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+import java.util.Date;
+
 public class CiclistaRepositorio {
 
-    public CiclistaRepositorio() {
-        // Não é necessário nenhum parâmetro para instanciar o repositório de Ciclista
-        // Todas as integrações são feitas por meio do controller.
+    private final Map<String, Ciclista> tabelaCiclista;
+    private final Map<String, Aluguel> tabelaAluguel;
+
+    public CiclistaRepositorio(Map<String, Ciclista> tabelaCiclista, Map<String, Aluguel> tabelaAluguel) {
+        this.tabelaCiclista = tabelaCiclista;
+        this.tabelaAluguel = tabelaAluguel;
     }
 
     public Ciclista retornaCiclista(String id) {
-        Ciclista ciclista = Database.TABELA_CICLISTA.get(id);
+        Ciclista ciclista = tabelaCiclista.get(id);
         if (ciclista == null) throw new GenericApiException(404, "Ciclista não encontrado");
         return ciclista;
     }
@@ -27,18 +31,32 @@ public class CiclistaRepositorio {
     }
 
     public Optional<Ciclista> buscaPorEmail(String email) {
-        return Database.TABELA_CICLISTA.keySet()
+        return this.tabelaCiclista.keySet()
                 .stream()
-                .map(Database.TABELA_CICLISTA::get)
+                .map(this.tabelaCiclista::get)
                 .filter(c -> c.getEmail().equals(email))
                 .findFirst();
     }
 
     public Ciclista cadastraCiclista(Ciclista ciclista) {
         String id = UUID.randomUUID().toString();
+        Optional<Ciclista>  ciclistaOptional = verificaSeExisteIdCiclista(id);
+
+        if (ciclistaOptional.isPresent()) {
+            boolean novoId = false;
+
+            while (!novoId) {
+                id = UUID.randomUUID().toString();
+                ciclistaOptional = verificaSeExisteIdCiclista(id);
+
+                if (!ciclistaOptional.isPresent())
+                    novoId = true;
+            }
+        }
+
         ciclista.setId(id);
         ciclista.setStatus(false);
-        Database.TABELA_CICLISTA.put(id, ciclista);
+        this.tabelaCiclista.put(id, ciclista);
         return ciclista;
     }
 
@@ -46,7 +64,7 @@ public class CiclistaRepositorio {
         Ciclista ciclista = retornaCiclista(id);
         if (Boolean.TRUE.equals(ciclista.getStatus())) throw new GenericApiException(405, "Esta conta já foi confirmada.");
         ciclista.setStatus(true);
-        Database.TABELA_CICLISTA.replace(id, ciclista);
+        this.tabelaCiclista.replace(id, ciclista);
         CiclistaJsonApi ciclistaJsonApi = new CiclistaJsonApi();
         ciclistaJsonApi.setId(ciclista.getId());
         ciclistaJsonApi.setStatus(ciclista.getStatus());
@@ -68,11 +86,11 @@ public class CiclistaRepositorio {
     public void alteraCartaoPorCiclista(String idCiclista, MeioDePagamento novoMeioDePagamento) {
         Ciclista ciclista = retornaCiclista(idCiclista);
         ciclista.setMeioDePagamento(novoMeioDePagamento);
-        Database.TABELA_CICLISTA.replace(idCiclista, ciclista);
+        this.tabelaCiclista.replace(idCiclista, ciclista);
     }
 
 
-    public void alteraCiclista(String id, CiclistaJsonApi ciclistaJsonApi) {
+    public Ciclista alteraCiclista(String id, CiclistaJsonApi ciclistaJsonApi) {
         Ciclista ciclista = retornaCiclista(id);
         ciclista.setCpf(ciclistaJsonApi.getCpf());
         ciclista.setNascimento(ciclistaJsonApi.getNascimento());
@@ -81,32 +99,83 @@ public class CiclistaRepositorio {
         ciclista.setNacionalidade(ciclistaJsonApi.getNacionalidade());
         ciclista.setPassaporte(ciclistaJsonApi.getPassaporte());
         ciclista.setUrlFotoDocumento(ciclistaJsonApi.getUrlFotoDocumento());
-        Database.TABELA_CICLISTA.put(id, ciclista);
+        this.tabelaCiclista.replace(id, ciclista);
+        return ciclista;
     }
 
     public void alteraStatusCiclista(String id, Boolean status){
         Ciclista ciclista = retornaCiclista(id);
         ciclista.setStatus(status);
-        Database.TABELA_CICLISTA.put(id, ciclista);
+        this.tabelaCiclista.put(id, ciclista);
     }
 
     public Aluguel alugar(Ciclista ciclista, Tranca tranca, Bicicleta bicicleta, Cobranca cobranca) {
+        String id = UUID.randomUUID().toString();
+        Optional<Aluguel>  aluguelOptional = verificaSeExisteIdAluguel(id);
+
+        if (aluguelOptional.isPresent()) {
+            boolean novoId = false;
+
+            while (!novoId) {
+                id = UUID.randomUUID().toString();
+                aluguelOptional = verificaSeExisteIdAluguel(id);
+
+                if (!aluguelOptional.isPresent())
+                    novoId = true;
+            }
+        }
+
         Aluguel aluguel = new Aluguel();
-        aluguel.setId(UUID.randomUUID().toString());
+        aluguel.setId(id);
         aluguel.setCiclista(ciclista.getId());
         aluguel.setBicicleta(bicicleta.getId());
-        aluguel.setCobranca(cobranca.getId());
+        String[] cobrancas = new String[2];
+        cobrancas[0] = cobranca.getId();
+        aluguel.setCobranca(cobrancas);
         aluguel.setHoraInicio(new Date());
         aluguel.setTrancaInicio(tranca.getId());
-        Database.TABELA_ALUGUEL.put(aluguel.getId(), aluguel);
+        this.tabelaAluguel.put(aluguel.getId(), aluguel);
         return aluguel;
     }
 
-    public Optional<Aluguel> buscaAluguelEmCursoPorCiclista(Ciclista ciclista) {
-        return Database.TABELA_ALUGUEL.keySet()
+    public Aluguel devolver(Aluguel aluguel, Tranca tranca) {
+        aluguel.setHoraFim(new Date());
+        aluguel.setTrancaFim(tranca.getId());
+        this.tabelaAluguel.replace(aluguel.getId(), aluguel);
+
+        return aluguel;
+    }
+
+    public Optional<Ciclista> verificaSeExisteIdCiclista(String id) {
+        return this.tabelaCiclista.keySet()
                 .stream()
-                .map(Database.TABELA_ALUGUEL::get)
+                .map(this.tabelaCiclista::get)
+                .filter(e -> e.getId().equals(id))
+                .findFirst();
+    }
+
+    public Optional<Aluguel> verificaSeExisteIdAluguel(String id) {
+        return this.tabelaAluguel.keySet()
+                .stream()
+                .map(this.tabelaAluguel::get)
+                .filter(e -> e.getId().equals(id))
+                .findFirst();
+    }
+
+    public Optional<Aluguel> buscaAluguelEmCursoPorCiclista(Ciclista ciclista) {
+        return this.tabelaAluguel.keySet()
+                .stream()
+                .map(this.tabelaAluguel::get)
                 .filter(e -> e.getCiclista().equals(ciclista.getId()) && e.getHoraFim() == null)
                 .findFirst();
     }
+
+    public Aluguel buscaAluguelEmCursoPorBicicleta(Bicicleta bicicleta) {
+        return this.tabelaAluguel.keySet()
+                .stream()
+                .map(this.tabelaAluguel::get)
+                .filter(e -> e.getBicicleta().equals(bicicleta.getId()) && e.getHoraFim() == null)
+                .findFirst().orElseThrow(() -> new GenericApiException(422, "Bicicleta não está alugada"));
+    }
+
 }

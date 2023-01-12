@@ -4,6 +4,7 @@ import io.javalin.http.Context;
 import io.javalin.plugin.json.JavalinJson;
 import vadebici.servico_equipamento.dom.Bicicleta;
 import vadebici.servico_equipamento.dom.dto.PostBicicleta;
+import vadebici.servico_equipamento.dom.dto.BicicletaNaRede;
 import vadebici.servico_equipamento.repo.BicicletaRepositorio;
 import vadebici.servico_equipamento.util.Validacao;
 
@@ -13,7 +14,7 @@ import java.util.List;
 public class BicicletaController {
     private static final String PATH_ID = "idBicicleta";
 
-    public static BicicletaRepositorio bicicletaRepositorio = new BicicletaRepositorio();
+    public static final BicicletaRepositorio bicicletaRepositorio = new BicicletaRepositorio();
 
     private BicicletaController(){}
 
@@ -66,5 +67,19 @@ public class BicicletaController {
         String response = JavalinJson.getToJsonMapper().map(bicicleta);
         ctx.status(200);
         ctx.result(response);
+    }
+
+    public static void integrarNaRede(Context ctx) {
+        String body = ctx.body();
+        BicicletaNaRede bicicletaNaRede = JavalinJson.getFromJsonMapper().map(body, BicicletaNaRede.class);
+        bicicletaRepositorio.integrarNaRede(bicicletaNaRede);
+        ctx.status(200);
+    }
+
+    public static void removerDaRede(Context ctx) {
+        String body = ctx.body();
+        BicicletaNaRede bicicletaNaRede = JavalinJson.getFromJsonMapper().map(body, BicicletaNaRede.class);
+        bicicletaRepositorio.removerDaRede(bicicletaNaRede);
+        ctx.status(200);
     }
 }

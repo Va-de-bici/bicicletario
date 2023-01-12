@@ -1,5 +1,6 @@
 package vadebici.servico_equipamento.controller;
 
+import vadebici.servico_equipamento.dom.Bicicleta;
 import vadebici.servico_equipamento.dom.Totem;
 import vadebici.servico_equipamento.dom.Tranca;
 import vadebici.servico_equipamento.dom.dto.PostTotem;
@@ -53,6 +54,14 @@ public class TotemController {
         String id = ctx.pathParam(PATH_ID);
         List<Tranca> trancaList = TOTEM_REPO.buscarTrancas(id);
         String response = JavalinJson.toJson(trancaList);
+        ctx.status(200);
+        ctx.result(response);
+    }
+
+    public static void buscarBicicletasPorTotem(Context ctx) {
+        String id = ctx.pathParam(PATH_ID);
+        List<Bicicleta> bicicletaList = TOTEM_REPO.buscarBicicletas(id);
+        String response = JavalinJson.toJson(bicicletaList);
         ctx.status(200);
         ctx.result(response);
     }

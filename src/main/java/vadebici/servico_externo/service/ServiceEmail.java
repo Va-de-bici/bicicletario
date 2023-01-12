@@ -1,10 +1,10 @@
-package vadebici.servico_externo.service;
+/*package vadebici.service;
 
 import com.mailgun.api.v3.MailgunMessagesApi;
 import com.mailgun.client.MailgunClient;
 import com.mailgun.model.message.Message;
-import vadebici.servico_externo.dom.Email;
-import vadebici.servico_externo.util.Segredos;
+import vadebici.dom.Email;
+import vadebici.util.Segredos;
 
 public class ServiceEmail {
 
@@ -27,5 +27,5 @@ public class ServiceEmail {
         mailgunMessagesApi.sendMessage(Segredos.getEmailDomainName(), message);
     }
 }
-
+*/
 

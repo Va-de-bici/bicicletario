@@ -5,7 +5,7 @@ import vadebici.servico_equipamento.dom.Totem;
 import vadebici.servico_equipamento.dom.Tranca;
 import vadebici.servico_equipamento.dom.dto.PostTotem;
 import vadebici.exception.GenericApiException;
-
+import vadebici.servico_equipamento.dom.Bicicleta;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -52,6 +52,15 @@ public class TotemRepositorio {
                 .stream()
                 .map(Database.TRANCA_TABLE::get)
                 .filter(t -> t.getIdTotem().equals(id))
+                .collect(Collectors.toList());
+    }
+
+    public List<Bicicleta> buscarBicicletas(String id){
+        List<Tranca> trancas = buscarTrancas(id);
+
+        return trancas.stream()
+                .map(t -> Database.BICICLETA_TABLE.get(t.getIdBicicleta()))
+                .filter(b -> b != null)
                 .collect(Collectors.toList());
     }
 }

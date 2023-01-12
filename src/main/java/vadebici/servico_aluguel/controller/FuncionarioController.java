@@ -2,6 +2,7 @@ package vadebici.servico_aluguel.controller;
 
 import io.javalin.http.Context;
 import io.javalin.plugin.json.JavalinJson;
+import vadebici.servico_aluguel.db_in_memory.Database;
 import vadebici.servico_aluguel.dom.Funcionario;
 import vadebici.servico_aluguel.repo.FuncionarioRepositorio;
 import vadebici.servico_aluguel.util.Validacao;
@@ -9,7 +10,7 @@ import vadebici.servico_aluguel.util.Validacao;
 import java.util.List;
 
 public class FuncionarioController {
-    public static final FuncionarioRepositorio FUNC_REPO = new FuncionarioRepositorio();
+    public static final FuncionarioRepositorio FUNC_REPO = new FuncionarioRepositorio(Database.TABELA_FUNCIONARIO);
     public static final Validacao VALIDACAO = new Validacao();
 
     private static final String CAMPO_ID_FUNCIONARIO = "idFuncionario";

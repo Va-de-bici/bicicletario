@@ -23,6 +23,12 @@ public class ServicoEquipamento {
         return tranca;
     }
 
+    public Tranca insereBicicletaNaRede(Tranca tranca, Bicicleta bicicleta){
+        tranca.setBicicleta(bicicleta.getId());
+
+        return tranca;
+    }
+
     public Tranca retornaTranca(String id) {
         Tranca tranca = new Tranca();
 
@@ -41,4 +47,5 @@ public class ServicoEquipamento {
 
         return bicicleta;
     }
+
 }

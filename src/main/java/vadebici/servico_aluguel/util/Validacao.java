@@ -34,7 +34,7 @@ public class Validacao {
 
         } else {
             if (ciclista.getCpf() == null) throw new GenericApiException(405, "O campo 'cpf' é obrigatório para usuários brasileiros");
-            if (ciclista.getCpf().length() != 11 || !ciclista.getCpf().matches("[0-9]+")) throw new GenericApiException(405, "O campo 'cpf' está incorreto");
+            if (ciclista.getCpf().length() != 11 || !ciclista.getCpf().matches("\\d+")) throw new GenericApiException(405, "O campo 'cpf' está incorreto");
         }
     }
 
@@ -45,7 +45,7 @@ public class Validacao {
 
         } else {
             if (ciclista.getCpf() == null) throw new GenericApiException(405, "O campo 'cpf' é obrigatório para usuários brasileiros");
-            if (ciclista.getCpf().length() != 11 || !ciclista.getCpf().matches("[0-9]+")) throw new GenericApiException(405, "O campo 'cpf' está incorreto");
+            if (ciclista.getCpf().length() != 11 || !ciclista.getCpf().matches("\\d+")) throw new GenericApiException(405, "O campo 'cpf' está incorreto");
         }
     }
 

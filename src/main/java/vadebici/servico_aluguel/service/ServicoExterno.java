@@ -3,6 +3,8 @@ package vadebici.servico_aluguel.service;
 import vadebici.servico_aluguel.dom.*;
 import vadebici.servico_aluguel.dom.dto.CobrancaJsonApi;
 
+import java.util.UUID;
+
 public class ServicoExterno {
     public boolean validaCartao(MeioDePagamento meioDePagamento) {
         return meioDePagamento != null;
@@ -15,7 +17,7 @@ public class ServicoExterno {
     public Cobranca realizaCobranca(CobrancaJsonApi cobrancaJsonApi) {
         double valor = cobrancaJsonApi.getValor();
         Cobranca cobranca = new Cobranca();
-        cobranca.setId("1234");
+        cobranca.setId(UUID.randomUUID().toString());
         cobranca.setStatus("Aprovado");
         cobranca.setValor(valor);
         return cobranca;

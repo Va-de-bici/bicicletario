@@ -7,7 +7,12 @@ import kong.unirest.Unirest;
 import vadebici.servico_externo.controller.CartaoCreditoController;
 import vadebici.servico_externo.dom.CartaoCredito;
 import vadebici.servico_externo.dom.CobrancaD;
+import vadebici.servico_externo.dom.FilaCobranca;
+import vadebici.servico_externo.exception.GenericApiException;
 import vadebici.servico_externo.form.CobrancaForm;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class Cobranca {
@@ -49,19 +54,14 @@ public class Cobranca {
 		return response;
 	}
 
-	/*public static void getCobranca(Context ctx) throws GenericApiException {
+	public static void getCobranca(Context ctx) throws GenericApiException {
 		Cobranca daoCobranca = new Cobranca();
 		CobrancaD daoCobrancaD = daoCobranca.consultarCobrancaCobrancaById(Objects.requireNonNull(ctx.pathParam("id")));
 
-		if (daoCobranca != null) {
-			ctx.status(200);
-			ctx.json(daoCobranca);
-		} else {
-			GenericApiException cobNotFound = new GenericApiException();
-			ctx.html(cobNotFound.getMessageCobrancaNotFound());
-			ctx.status(404);
-		}
-	}*/
+		ctx.status(200);
+		ctx.json(daoCobranca);
+		
+	}
 
 	public static void realizaCobranca(Context ctx) {
 		CobrancaD cobrancaForm = ctx.bodyAsClass(CobrancaForm.class).deserializePostCobranca();
@@ -80,7 +80,7 @@ public class Cobranca {
 		}
 	}
 
-	/*public CobrancaD consultarCobrancaCobrancaById(String id) throws GenericApiException {
+	public CobrancaD consultarCobrancaCobrancaById(String id) throws GenericApiException {
 
 		ArrayList<CobrancaD> cobrancasIdLista = retornarCobrancas();
 		CobrancaD cobrancaId = null;
@@ -98,7 +98,7 @@ public class Cobranca {
 			GenericApiException error = new GenericApiException();
 			throw new GenericApiException(error.getMessageCobrancaNotFound());
 		}
-	}*/
+	}
 
 	public HttpResponse<JsonNode> sendCobranca() {
 		TransacaoCielo transaction = new TransacaoCielo("1");
@@ -116,8 +116,13 @@ public class Cobranca {
 		return response;
 	}
 
+	public void setCobranca(CobrancaD cobranca) {
+		this.cobranca = cobranca;
+	}
 
-	/*public ArrayList<CobrancaD> retornarCobrancas() {
+
+
+	public ArrayList<CobrancaD> retornarCobrancas() {
 
 		ArrayList<CobrancaD> cobrancasRetornadas = new ArrayList<CobrancaD>();
 		cobrancasRetornadas.add(new CobrancaD("3fa85f64-5717-4562-b3fc-2c963f66afa6", 1));
@@ -131,7 +136,7 @@ public class Cobranca {
 		
 		return cobrancasRetornadas;
 	}
-*/
+
 
 
 }

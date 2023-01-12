@@ -1,16 +1,21 @@
 package vadebici.servico_externo.controller;
 
+import java.util.ArrayList;
+
+import vadebici.servico_externo.form.CartaoCreditoForm;
 import io.javalin.http.Context;
-import io.javalin.plugin.json.JavalinJson;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
+import kong.unirest.Unirest;
 import vadebici.servico_externo.dom.CartaoCredito;
 import vadebici.servico_externo.pagamento.Cobranca;
+import io.javalin.plugin.json.JavalinJson;
 
 
 public class CartaoCreditoController {
 
-	public CartaoCreditoController(){}
+	public CartaoCreditoController(){//vazio
+	}
 
 	public CartaoCredito retornaCartaoDeCreditoIntegracao() {
 		CartaoCredito card = new CartaoCredito("Bruno Bastos", "4556346904266753", "03/2024", "118");

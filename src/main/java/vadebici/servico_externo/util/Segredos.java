@@ -1,4 +1,4 @@
-package vadebici.servico_externo.util;
+/*package vadebici.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -41,3 +41,4 @@ public class Segredos {
 
 }
 
+*/
