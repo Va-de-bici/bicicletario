@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Tranca {
     private String id;
-    private String bicicleta;
+    private String idBicicleta;
     private String status;
     public String getId() {
         return id;
@@ -15,12 +15,12 @@ public class Tranca {
         this.id = id;
     }
 
-    public String getBicicleta() {
-        return bicicleta;
+    public String getIdBicicleta() {
+        return idBicicleta;
     }
 
-    public void setBicicleta(String bicicleta) {
-        this.bicicleta = bicicleta;
+    public void setIdBicicleta(String idBicicleta) {
+        this.idBicicleta = idBicicleta;
     }
 
     public String getStatus() {

@@ -136,14 +136,14 @@ public class CiclistaController {
 
         Tranca tranca = servicoEquipamento.buscarTranca(aluguelJsonApi.getTrancaInicio());
 
-        if (tranca.getBicicleta() == null)
+        if (tranca.getIdBicicleta() == null)
             throw new GenericApiException(422, "Tranca vazia");
 
         CobrancaJsonApi cobrancaJsonApi = new CobrancaJsonApi();
         cobrancaJsonApi.setCiclista(ciclista.getId());
         cobrancaJsonApi.setValor(10.0);
         Cobranca cobranca = servicoExterno.realizaCobranca(cobrancaJsonApi);
-        Bicicleta bicicleta = servicoEquipamento.buscarBicicleta(tranca.getBicicleta());
+        Bicicleta bicicleta = servicoEquipamento.buscarBicicleta(tranca.getIdBicicleta());
 
         if (bicicleta.getStatus().equals("EM REPARO"))
             throw new GenericApiException(422, "Há um reparo requisitado para a bicicleta e, portanto, esta bicicleta não pode ser alugada.");
