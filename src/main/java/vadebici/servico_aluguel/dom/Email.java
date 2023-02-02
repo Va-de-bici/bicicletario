@@ -1,8 +1,10 @@
 package vadebici.servico_aluguel.dom;
 
 public class Email {
-    private String enderecoEmail;
+
     private String mensagem;
+
+    private String enderecoEmail;
 
     public String getEnderecoEmail() {
         return enderecoEmail;

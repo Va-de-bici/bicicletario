@@ -32,8 +32,8 @@ public class CiclistaController {
     public static ServicoEquipamento servicoEquipamento =  new ServicoEquipamento();
 
     private static final String CAMPO_ID_CICLISTA = "idCiclista";
-    private static final String BICICLETA_ALUGADA = "EM_USO";
-    private static final String TRANCA_SEM_BICICLETA = "LIVRE";
+    private static final String OBJETO_OCUPADO = "OCUPADA";
+    private static final String OBJETO_DISPONIVEL = "DISPONIVEL";
 
     private static final String URL_API = "https://va-de-bici.herokuapp.com";
 
@@ -134,7 +134,7 @@ public class CiclistaController {
             throw new GenericApiException(422, "Ciclista não pode alugar a bicicleta, pois já possui outro aluguel em andamento");
         }
 
-        Tranca tranca = servicoEquipamento.retornaTranca(aluguelJsonApi.getTrancaInicio());
+        Tranca tranca = servicoEquipamento.buscarTranca(aluguelJsonApi.getTrancaInicio());
 
         if (tranca.getBicicleta() == null)
             throw new GenericApiException(422, "Tranca vazia");
@@ -143,14 +143,14 @@ public class CiclistaController {
         cobrancaJsonApi.setCiclista(ciclista.getId());
         cobrancaJsonApi.setValor(10.0);
         Cobranca cobranca = servicoExterno.realizaCobranca(cobrancaJsonApi);
-        Bicicleta bicicleta = servicoEquipamento.retornaBicicleta(tranca.getBicicleta());
+        Bicicleta bicicleta = servicoEquipamento.buscarBicicleta(tranca.getBicicleta());
 
         if (bicicleta.getStatus().equals("EM REPARO"))
             throw new GenericApiException(422, "Há um reparo requisitado para a bicicleta e, portanto, esta bicicleta não pode ser alugada.");
 
-        tranca = servicoEquipamento.removeBicicletaDaRede(tranca);
-        bicicleta = servicoEquipamento.alteraStatusBicicleta(bicicleta, BICICLETA_ALUGADA);
-        tranca = servicoEquipamento.alteraStatusTranca(tranca, TRANCA_SEM_BICICLETA);
+        servicoEquipamento.removerBicicletaDaRede(bicicleta.getId(), tranca.getId());
+        servicoEquipamento.mudarStatusBicicleta(bicicleta.getId(), OBJETO_OCUPADO);
+        servicoEquipamento.mudarStatusTranca(tranca.getId(), OBJETO_DISPONIVEL);
         final Aluguel aluguel = ciclistaRepositorio.alugar(ciclista, tranca, bicicleta, cobranca);
         enviaEmail(ciclista.getEmail(), "Aluguel efetuado com sucesso \n\n" + aluguel);
         String response = JavalinJson.toJson(aluguel);
@@ -192,15 +192,13 @@ public class CiclistaController {
         DevolucaoJsonApi devolucaoJsonApi = JavalinJson.getFromJsonMapper().map(body, DevolucaoJsonApi.class);
 
         validacao.validaAtributos(devolucaoJsonApi, 422);
-        Bicicleta bicicleta = servicoEquipamento.retornaBicicleta(devolucaoJsonApi.getIdBicicleta());
-        bicicleta.setStatus(BICICLETA_ALUGADA);
-        Tranca tranca = servicoEquipamento.retornaTranca(devolucaoJsonApi.getIdTranca());
-        tranca.setStatus(TRANCA_SEM_BICICLETA);
+        Bicicleta bicicleta = servicoEquipamento.buscarBicicleta(devolucaoJsonApi.getIdBicicleta());
+        Tranca tranca = servicoEquipamento.buscarTranca(devolucaoJsonApi.getIdTranca());
 
-        if (!tranca.getStatus().equals(TRANCA_SEM_BICICLETA))
+        if (!tranca.getStatus().equals(OBJETO_DISPONIVEL))
             throw new GenericApiException(422, "Tranca não está disponível");
 
-        if (!bicicleta.getStatus().equals(BICICLETA_ALUGADA))
+        if (!bicicleta.getStatus().equals(OBJETO_OCUPADO))
             throw new GenericApiException(422, "Bicicleta não está em uso");
 
         Aluguel aluguel = ciclistaRepositorio.buscaAluguelEmCursoPorBicicleta(bicicleta);
@@ -213,9 +211,9 @@ public class CiclistaController {
             aluguel.setCobranca(cobranca);
         }
 
-        servicoEquipamento.insereBicicletaNaRede(tranca, bicicleta);
-        servicoEquipamento.alteraStatusBicicleta(bicicleta, "DISPONIVEL");
-        servicoEquipamento.alteraStatusTranca(tranca, "OCUPADA");
+        servicoEquipamento.integrarBicicletaNaRede(bicicleta.getId(), tranca.getId());
+        servicoEquipamento.mudarStatusBicicleta(bicicleta.getId(), OBJETO_DISPONIVEL);
+        servicoEquipamento.mudarStatusTranca(tranca.getId(), OBJETO_OCUPADO);
         aluguel = ciclistaRepositorio.devolver(aluguel, tranca);
         enviaEmail(ciclista.getEmail(), "Devolução realizada com sucesso \n\n" + aluguel);
 
