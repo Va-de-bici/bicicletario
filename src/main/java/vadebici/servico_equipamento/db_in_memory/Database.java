@@ -59,5 +59,6 @@ public class Database {
         bicicleta.setNumero(123);
         bicicleta.setStatus(BicicletaStatus.DISPONIVEL);
         return bicicleta;
+
     }
 }
