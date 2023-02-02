@@ -1,44 +1,34 @@
-/*package vadebici.util;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Properties;
+package vadebici.servico_externo.util;
 
 public class Segredos {
-    private Segredos(){}
-    private static Properties properties;
-    private static final String EMAIL_API_KEY = "EMAIL_API_KEY";
-    private static final String EMAIL_DOMAIN = "EMAIL_DOMAIN";
+    private static final String MAILGUN_ACCESS = "dee8d6edc08cb1bb2b76d237e510bc78-75cd784d-50e92491";
+    private static final String EMAIL_DOMAIN = "sandbox5fbb90af6cb6400da7d87a1b51eb78ad.mailgun.org";
+    private static final String CLIENT_ID = "167ae729-9d7d-45da-920f-e672cd3219b9";
+    private static final String CLIENT_S_GETNET= "e4d66975-4389-4bdb-afaa-ccac84e6f9ca";
+    private static final String SELLER_ID = "393a0b03-e028-421f-8298-9add9f0bbd27";
 
-    static {
-        String pathName = "segredos.properties";
-        Path path = Paths.get(pathName);
-        if (Files.exists(path)) {
-            try {
-                FileInputStream fileInputStream = new FileInputStream(pathName);
-                properties = new Properties();
-                properties.load(fileInputStream);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
 
-    public static String getEmailApiKey() {
-        String emailApiKey = System.getenv(EMAIL_API_KEY);
-        if (emailApiKey == null) emailApiKey = properties.getProperty(EMAIL_API_KEY);
-        return emailApiKey;
+    private Segredos(){ //teste
+         }
+
+
+    public static String getMailgunAccess() {
+        return MAILGUN_ACCESS;
     }
 
     public static String getEmailDomainName() {
-        String emailDomainName = System.getenv(EMAIL_DOMAIN);
-        if (emailDomainName == null) emailDomainName = properties.getProperty(EMAIL_DOMAIN);
-        return emailDomainName;
+        return EMAIL_DOMAIN;
     }
 
-}
+    public static String getClientId() {
+        return CLIENT_ID;
+    }
 
-*/
+    public static String getClientSecret() {
+        return CLIENT_S_GETNET;
+    }
+
+    public static String getSellerId() {
+        return SELLER_ID;
+    }
+}

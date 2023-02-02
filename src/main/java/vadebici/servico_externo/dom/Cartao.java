@@ -1,20 +1,19 @@
 package vadebici.servico_externo.dom;
 
-public class CartaoCredito {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+public class Cartao {
     private String nomeTitular;
+    @NotBlank(message = "O campo 'numero' é obrigatório")
+    @Size(min = 13, max = 16, message = "O campo 'numero' deve ter entre 13 e 16 dígitos")
     private String numero;
+    @NotBlank(message = "O campo 'validade' é obrigatório")
     private String validade;
+    @NotBlank(message = "O campo 'cvv' é obrigatório")
+    @Size(min = 3, max = 3, message = "O campo 'cvv' deve conter somente 3 digitos")
     private String cvv;
 
-    public CartaoCredito(String nomeTitular, String numero, String validade, String cvv)    {
-		this.nomeTitular = nomeTitular;
-		this.numero = numero;
-		this.validade = validade;
-		this.cvv = cvv;
-	}
-
-    public CartaoCredito(){}
-        
     public String getNomeTitular() {
         return nomeTitular;
     }
@@ -46,19 +45,4 @@ public class CartaoCredito {
     public void setCvv(String cvv) {
         this.cvv = cvv;
     }
-
-    public String getBand() {
-		if (this.getNumero().substring(0, 1).equals("4")) {
-			return "Visa";
-		} else if (this.getNumero().substring(0, 1).equals("5")) {
-			return "MasterCard";
-		} else if (this.getNumero().substring(0, 2).equals("37")) {
-			return "AmericanExpress";
-		} else {
-			return "Sem bandeira";
-		}
-    }
-
 }
-
-

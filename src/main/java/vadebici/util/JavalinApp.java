@@ -8,10 +8,8 @@ import vadebici.servico_aluguel.controller.FuncionarioController;
 import vadebici.servico_equipamento.controller.BicicletaController;
 import vadebici.servico_equipamento.controller.TotemController;
 import vadebici.servico_equipamento.controller.TrancaController;
-import vadebici.servico_externo.controller.CartaoCreditoController;
 import vadebici.servico_externo.controller.EmailController;
-import vadebici.servico_externo.controller.FilaCobrancaController;
-import vadebici.servico_externo.pagamento.Cobranca;
+import vadebici.servico_externo.controller.PagamentoController;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
 
@@ -80,11 +78,12 @@ public class JavalinApp {
 
                         // Serviço Externo
 
-                        path("/cobranca/:id", ()-> get(Cobranca::getCobranca));
-                        path("/cobranca",  ()-> post(Cobranca::realizaCobranca));
-                        path("/filaCobranca",  () -> post(FilaCobrancaController::filaCobranca));
-                        path("/enviarEmail", () -> post(EmailController::enviaEmail));
-                        path("/validaCartaoDeCredito", () -> post(CartaoCreditoController::validaCartaoCredito));
+                        path("/enviarEmail", () -> post(EmailController::enviarEmail));
+                        path("/cobranca", () -> post(PagamentoController::realizarCobranca));
+                        path("/filaCobranca", () -> post(PagamentoController::adicionarNaFilaCobranca));
+                        path("/processaCobrancasEmFila", () -> post(PagamentoController::processaCobrancasEmFila));
+                        path("/cobranca/:idCobranca", () -> get(PagamentoController::buscarCobranca));
+                        path("/validaCartaoDeCredito", () -> post(PagamentoController::validarCartao));
 
 
                     }).error(500, ctx -> {
