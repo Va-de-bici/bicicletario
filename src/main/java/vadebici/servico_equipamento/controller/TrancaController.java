@@ -1,10 +1,12 @@
 package vadebici.servico_equipamento.controller;
 
+import vadebici.servico_equipamento.dom.Email;
 import vadebici.servico_equipamento.dom.Tranca;
 import vadebici.servico_equipamento.dom.Bicicleta;
 import vadebici.servico_equipamento.dom.dto.PostTranca;
 import vadebici.servico_equipamento.dom.dto.TrancaNaRede;
 import vadebici.servico_equipamento.repo.TrancaRepositorio;
+import vadebici.servico_equipamento.service.ServicoExterno;
 import vadebici.servico_equipamento.util.Validacao;
 import io.javalin.http.Context;
 import io.javalin.plugin.json.JavalinJson;
@@ -17,6 +19,8 @@ public class TrancaController {
     private TrancaController(){}
     public static final TrancaRepositorio trancaRepositorio = new TrancaRepositorio();
     private static final String TRANCA_ID = "idTranca";
+
+    public static ServicoExterno servicoExterno =  new ServicoExterno();
 
     public static void salvarTranca(Context ctx) {
         String body = ctx.body();
@@ -81,6 +85,7 @@ public class TrancaController {
         TrancaNaRede trancaNaRede = JavalinJson.getFromJsonMapper().map(body, TrancaNaRede.class);
         Validacao.validarCampos(trancaNaRede);
         trancaRepositorio.integrarNaRede(trancaNaRede);
+        enviaEmail("erick.m.val@edu.unirio.br", "Tranca incluída na rede");
         ctx.status(200);
     }
 
@@ -89,6 +94,14 @@ public class TrancaController {
         TrancaNaRede trancaNaRede = JavalinJson.getFromJsonMapper().map(body, TrancaNaRede.class);
         Validacao.validarCampos(trancaNaRede);
         trancaRepositorio.removerDaRede(trancaNaRede);
+        enviaEmail("erick.m.val@edu.unirio.br", "Tranca removida da rede");
         ctx.status(200);
+    }
+
+    public static void enviaEmail(String destinatario, String mensagem) {
+        Email email = new Email();
+        email.setEnderecoEmail(destinatario);
+        email.setMensagem(mensagem);
+        servicoExterno.enviaEmail(email);
     }
 }

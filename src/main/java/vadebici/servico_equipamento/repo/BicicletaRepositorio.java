@@ -1,13 +1,10 @@
 package vadebici.servico_equipamento.repo;
 
-import vadebici.servico_equipamento.db_in_memory.Database;
-import vadebici.servico_equipamento.dom.Bicicleta;
-import vadebici.servico_equipamento.dom.BicicletaStatus;
-import vadebici.servico_equipamento.dom.dto.PostBicicleta;
-import vadebici.servico_equipamento.dom.dto.BicicletaNaRede;
-import vadebici.servico_equipamento.dom.Tranca;
-import vadebici.servico_equipamento.dom.TrancaStatus;
 import vadebici.exception.GenericApiException;
+import vadebici.servico_equipamento.db_in_memory.Database;
+import vadebici.servico_equipamento.dom.*;
+import vadebici.servico_equipamento.dom.dto.BicicletaNaRede;
+import vadebici.servico_equipamento.dom.dto.PostBicicleta;
 import vadebici.servico_equipamento.util.Validacao;
 
 import java.util.List;

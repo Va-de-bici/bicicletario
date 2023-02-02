@@ -1,10 +1,7 @@
 package vadebici.servico_equipamento.repo;
 
 import vadebici.servico_equipamento.db_in_memory.Database;
-import vadebici.servico_equipamento.dom.Tranca;
-import vadebici.servico_equipamento.dom.Bicicleta;
-import vadebici.servico_equipamento.dom.Totem;
-import vadebici.servico_equipamento.dom.TrancaStatus;
+import vadebici.servico_equipamento.dom.*;
 import vadebici.servico_equipamento.dom.dto.PostTranca;
 import vadebici.servico_equipamento.dom.dto.TrancaNaRede;
 import vadebici.exception.GenericApiException;
@@ -75,6 +72,7 @@ public class TrancaRepositorio {
         if (tranca.getIdBicicleta() != null) throw new GenericApiException(422, "Tranca possui uma bicicleta.");
         buscarTotem(trancaNaRede.getIdTotem());
         tranca.setIdTotem(null);
+        Database.TRANCA_TABLE.replace(tranca.getId(), tranca);
     }
 
     public Bicicleta buscarBicicletaPorTranca(String id) {

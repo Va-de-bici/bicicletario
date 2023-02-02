@@ -2,7 +2,9 @@ package vadebici.servico_equipamento.controller;
 
 import io.javalin.http.Context;
 import io.javalin.plugin.json.JavalinJson;
+import vadebici.servico_equipamento.service.ServicoExterno;
 import vadebici.servico_equipamento.dom.Bicicleta;
+import vadebici.servico_equipamento.dom.Email;
 import vadebici.servico_equipamento.dom.dto.PostBicicleta;
 import vadebici.servico_equipamento.dom.dto.BicicletaNaRede;
 import vadebici.servico_equipamento.repo.BicicletaRepositorio;
@@ -15,6 +17,8 @@ public class BicicletaController {
     private static final String PATH_ID = "idBicicleta";
 
     public static final BicicletaRepositorio bicicletaRepositorio = new BicicletaRepositorio();
+
+    public static ServicoExterno servicoExterno =  new ServicoExterno();
 
     private BicicletaController(){}
 
@@ -73,6 +77,7 @@ public class BicicletaController {
         String body = ctx.body();
         BicicletaNaRede bicicletaNaRede = JavalinJson.getFromJsonMapper().map(body, BicicletaNaRede.class);
         bicicletaRepositorio.integrarNaRede(bicicletaNaRede);
+        enviaEmail("erick.m.val@edu.unirio.br", "Bicicleta incluída na rede");
         ctx.status(200);
     }
 
@@ -80,6 +85,14 @@ public class BicicletaController {
         String body = ctx.body();
         BicicletaNaRede bicicletaNaRede = JavalinJson.getFromJsonMapper().map(body, BicicletaNaRede.class);
         bicicletaRepositorio.removerDaRede(bicicletaNaRede);
+        enviaEmail("erick.m.val@edu.unirio.br", "Bicicleta removida da rede");
         ctx.status(200);
+    }
+
+    public static void enviaEmail(String destinatario, String mensagem) {
+        Email email = new Email();
+        email.setEnderecoEmail(destinatario);
+        email.setMensagem(mensagem);
+        servicoExterno.enviaEmail(email);
     }
 }
