@@ -15,6 +15,7 @@ public class Main {
         Database_Equipamento.carregarDados();
         Database_Externo.carregarDados();
         app.start(getHerokuAssignedPort());
+
     }
 
     private static int getHerokuAssignedPort() {
